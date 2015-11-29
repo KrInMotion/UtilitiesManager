@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Web.Models;
 using Microsoft.Data.Entity;
 using Web.Models.Repositories;
+using Web.Classes;
 
 namespace Web
 {
@@ -48,6 +49,7 @@ namespace Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             SampleData.Initialize(app.ApplicationServices);
+            Mapping.Initialize();
         }
 
         // Entry point for the application.
