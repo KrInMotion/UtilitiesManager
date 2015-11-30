@@ -11,7 +11,8 @@ namespace Web.Models.Repositories
         IEnumerable<BillType> GetBillTypes();
         IEnumerable<BillType> GetBillTypesByName(string billTypeName);
         BillType GetBillType(int id);
-
+        bool Commit();
+        void SaveBillType(BillType entity);
     }
 
     public class BillTypeRepository : IBillTypeRepository
@@ -36,6 +37,16 @@ namespace Web.Models.Repositories
         public IEnumerable<BillType> GetBillTypesByName(string billTypeName)
         {
             return _context.BillTypes.Where(x => x.TypeName.ToUpper() == billTypeName.ToUpper()).ToList();
+        }
+
+        public bool Commit()
+        {
+            return _context.SaveChanges() > 0;
+        }
+
+        public void SaveBillType(BillType entity)
+        {
+            _context.BillTypes.Add(entity);
         }
     }
 }

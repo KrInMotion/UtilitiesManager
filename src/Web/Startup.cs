@@ -11,6 +11,7 @@ using Web.Models;
 using Microsoft.Data.Entity;
 using Web.Models.Repositories;
 using Web.Classes;
+using Newtonsoft.Json.Serialization;
 
 namespace Web
 {
@@ -26,15 +27,19 @@ namespace Web
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().
+                AddJsonOptions(option =>
+                {
+                    option.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
             services.AddEntityFramework()
                 .AddSqlServer()
                 .AddDbContext<UtilitiesContext>(options =>
                 options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
             services.AddScoped<IBillTypeRepository, BillTypeRepository>();
+            services.AddScoped<IBillProviderRepository, BillProviderRepository>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -42,6 +47,7 @@ namespace Web
                 app.UseDeveloperExceptionPage();
             }
             app.UseIISPlatformHandler();
+            app.UseStaticFiles();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -52,7 +58,6 @@ namespace Web
             Mapping.Initialize();
         }
 
-        // Entry point for the application.
         public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }

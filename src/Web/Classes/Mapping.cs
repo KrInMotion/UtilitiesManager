@@ -14,9 +14,10 @@ namespace Web.Classes
         {
             Mapper.Initialize(config =>
             {
+                //BillType
                 config.CreateMap<BillType, BillTypeListVM>()
                 .ForMember(dest => dest.BillCount, map => map.MapFrom(src => src.Bills.Count()));
-                
+                config.CreateMap<BillType, BillTypeFormVM>().ReverseMap();
             });
         }
     }

@@ -2,3 +2,30 @@
 @{
     ViewBag.Title = "Типы квитанций";
 }
+<div class="breadcrumbs">
+    <div class="container">
+        <h1 class="pull-left">Список категорий</h1>
+        <ul class="breadcrumb pull-right">
+            <li><a asp-controller="Home" asp-action="Index">Рецепты</a></li>
+            <li class="active">Категории</li>
+        </ul>
+    </div>
+</div>
+<div class="container">
+    <div class="row margin-top-20">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <i class="fa fa-align-right"></i> Категории
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div id="category-table">
+                        @*@Html.Partial("_CategoryList", Model)*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
